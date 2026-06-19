@@ -2,12 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-using Unity.VisualScripting.Antlr3.Runtime;
 
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
+
 
 [DefaultExecutionOrder(-100)]
 public class ElementContainer : MonoBehaviour
@@ -40,7 +37,7 @@ public class ElementContainer : MonoBehaviour
         database.InsertElement(indexDroppable, element);
     }
 
-    public int OnExit()
+    public int OnExitDrop()
     {
         if (m_DropPanel.gameObject.activeSelf)
         {
@@ -103,7 +100,6 @@ public class ElementContainer : MonoBehaviour
         if (data == null)
             return;
 
-        //Debug.Log(data.Elements.Count);
         for (int i = database.count - 1; i >= 0; i--)
         {
             Element element = database.GetElement(i);
@@ -114,12 +110,10 @@ public class ElementContainer : MonoBehaviour
         foreach (var e in data.Elements)
         {
             Element element = CreateElement();
-            Debug.Log(element);
 
             element.Init(e.Name, e.Age);
 
             database.AddElement(element);
-            //database.InsertElement(database.count, element);
         }
 
         RebuildUI();

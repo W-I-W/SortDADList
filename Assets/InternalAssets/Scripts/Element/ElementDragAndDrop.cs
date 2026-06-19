@@ -40,7 +40,7 @@ public class ElementDragAndDrop : MonoBehaviour
             ElementContainer container = m_Container.canvasService.GetContainer(i);
             if (container == null)
                 continue;
-            int index = container.OnExit();
+            int index = container.OnExitDrop();
             if (index != -1)
             {
 
