@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class ElementCollection : MonoBehaviour
@@ -109,6 +110,8 @@ public class ElementAdded
 public class DatabaseElement
 {
     private List<Element> m_Elements;
+    
+    public UnityAction<int> onCountChanged { get; set; }
 
     public int count => m_Elements.Count;
 
@@ -120,6 +123,7 @@ public class DatabaseElement
     public void AddElement(Element element)
     {
         m_Elements.Add(element);
+        onCountChanged?.Invoke(count);
     }
 
     public Element GetElement(int index)
@@ -132,25 +136,32 @@ public class DatabaseElement
     public void InsertElement(int index, Element element)
     {
         m_Elements.Insert(index, element);
+        onCountChanged?.Invoke(count);
     }
 
     public void RemoveElement(Element element)
     {
         m_Elements.Remove(element);
+        onCountChanged?.Invoke(count);
     }
 
-    public void SortName()
+    public void SortName(bool isReverse =false)
     {
         m_Elements.Sort((a, b) => string.Compare(a.textName, b.textName));
+        if (isReverse)
+            m_Elements.Reverse();
     }
 
-    public void SortAge()
+    public void SortAge(bool isReverse = false)
     {
         m_Elements.Sort((a, b) => a.textAge.CompareTo(b.textAge));
+        if (isReverse)
+            m_Elements.Reverse();
     }
 
     public void Clear()
     {
         m_Elements.Clear();
+        onCountChanged?.Invoke(count);
     }
 }

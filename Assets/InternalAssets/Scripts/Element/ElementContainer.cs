@@ -5,7 +5,9 @@ using System.IO;
 using Unity.VisualScripting.Antlr3.Runtime;
 
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 [DefaultExecutionOrder(-100)]
 public class ElementContainer : MonoBehaviour
@@ -28,6 +30,7 @@ public class ElementContainer : MonoBehaviour
     {
         database = new DatabaseElement();
         database.Init();
+
     }
 
     public void ElementInsert(Element element)
@@ -100,7 +103,7 @@ public class ElementContainer : MonoBehaviour
         if (data == null)
             return;
 
-        Debug.Log(data.Elements.Count);
+        //Debug.Log(data.Elements.Count);
         for (int i = database.count - 1; i >= 0; i--)
         {
             Element element = database.GetElement(i);
@@ -195,7 +198,7 @@ public static class JsonSaveSystem
     {
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(PathFile(fileName), json);
-        Debug.Log(File.ReadAllText(PathFile("elements")));
+        //Debug.Log(File.ReadAllText(PathFile("elements")));
     }
 
     public static T Load<T>(string fileName)
@@ -206,7 +209,7 @@ public static class JsonSaveSystem
             return default;
 
         string json = File.ReadAllText(path);
-        Debug.Log(json);
+        //Debug.Log(json);
         return JsonUtility.FromJson<T>(json);
     }
 }
